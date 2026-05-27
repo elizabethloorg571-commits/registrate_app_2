@@ -1,0 +1,165 @@
+name: running_app
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  badges: ^3.1.2
+  cached_network_image: ^3.4.1
+  connectivity_plus: ^7.0.0
+  cupertino_icons: ^1.0.8
+  device_info_plus: ^12.2.0
+  firebase_analytics: ^12.0.3
+  firebase_auth: ^6.1.1
+  firebase_core: ^4.2.0
+  firebase_crashlytics: ^5.0.3
+  firebase_messaging: ^16.0.3
+  flutter:
+    sdk: flutter
+  flutter_intro: ^3.4.0
+  flutter_launcher_icons: ^0.14.4
+  flutter_local_notifications: ^21.0.0
+  flutter_localizations:
+    sdk: flutter
+  flutter_map: ^8.2.2
+  flutter_platform_widgets: ^10.0.1
+  flutter_riverpod: ^3.0.3
+  flutter_smart_dialog: ^5.1.0
+  flutter_svg: ^2.2.2
+  go_router: ^17.0.0
+  geolocator: ^14.0.2
+  google_sign_in: ^7.2.0
+  http: ^1.5.0
+  icons_plus: ^5.0.0
+  image: ^4.5.4
+  image_picker: ^1.2.0
+  intl: ^0.20.2
+  latlong2: ^0.9.1
+  lottie: ^3.3.2
+  mime: ^2.0.0
+  path_provider: ^2.1.5
+  playx_version_update: ^1.0.0
+  pretty_qr_code: ^3.5.0
+  qr_flutter: ^4.1.0
+  share_plus: ^12.0.1
+  shared_preferences: ^2.5.3
+  shimmer: ^3.0.0
+  sign_in_with_apple: ^7.0.1
+  url_launcher: ^6.3.2
+  webview_flutter_plus: ^0.4.19
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/app_icon.png"
+  adaptive_icon_background: "assets/images/app_icon.png"
+  adaptive_icon_foreground: "assets/images/adaptive_icon_foreground.png"
+  min_sdk_android: 21
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+  generate: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/json/animations/
+    - assets/json/ecuador/
+
+  fonts:
+    - family: NunitoSans
+      fonts:
+        - asset: assets/fonts/NunitoSans/NunitoSans-Black.ttf
+          weight: 900
+        - asset: assets/fonts/NunitoSans/NunitoSans-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/NunitoSans/NunitoSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/NunitoSans/NunitoSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/NunitoSans/NunitoSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NunitoSans/NunitoSans-Light.ttf
+          weight: 300
+        - asset: assets/fonts/NunitoSans/NunitoSans-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/NunitoSans/NunitoSans-Italic.ttf
+          style: italic
+        - asset: assets/fonts/NunitoSans/NunitoSans-BlackItalic.ttf
+          weight: 900
+          style: italic
+        - asset: assets/fonts/NunitoSans/NunitoSans-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/NunitoSans/NunitoSans-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/NunitoSans/NunitoSans-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/NunitoSans/NunitoSans-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/NunitoSans/NunitoSans-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
