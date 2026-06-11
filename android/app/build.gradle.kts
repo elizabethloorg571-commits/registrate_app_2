@@ -25,7 +25,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.magdata.tenorioApp"
+    namespace = "com.magdata.registraTeApp"
     compileSdk = 36
     ndkVersion = "28.2.13676358"
 
@@ -41,7 +41,7 @@ android {
 
     defaultConfig {
         multiDexEnabled = true
-        applicationId = "com.magdata.tenorioApp"
+        applicationId = "com.magdata.registraTeApp"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

@@ -172,10 +172,10 @@ Future<void> checkForUpdates() async {
     final result = await PlayxVersionUpdate.checkVersion(
       options: PlayxUpdateOptions(
         forceUpdate: true,
-        androidPackageName: 'com.magdata.tenorioApp',
-        iosBundleId: 'com.magdata.tenorioApp',
+        androidPackageName: 'com.magdata.registraTeApp',
+        iosBundleId: 'com.magdata.registraApp',
         country: 'EC',
-      ),
+      ), 
     );
 
     result.when(

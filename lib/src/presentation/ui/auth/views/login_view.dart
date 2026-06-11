@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:running_app/services/notification_service.dart';
 import 'package:running_app/services/shared_service.dart';
 import 'package:running_app/src/data/api/devices/devices_api_service.dart';
@@ -117,7 +116,7 @@ class LoginViewState extends ConsumerState<LoginView> {
               Center(
                 child: SizedBox(
                   height: responsive.hPercent(10),
-                  child: Image.asset('assets/images/geltea_icon.png'),
+                  child: Image.asset('assets/images/registraTe-logo-horizontal.png', fit: BoxFit.contain),
                 ),
               ),
               SizedBox(height: responsive.hp(5)),
@@ -327,7 +326,7 @@ class LoginViewState extends ConsumerState<LoginView> {
                     SizedBox(height: responsive.hp(10)),
                     Divider(color: Colors.grey, thickness: 0.5),
                     SizedBox(height: responsive.hp(10)),
-                    ElevatedButton.icon(
+                    ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.lightModeButtonsSecondary,
                         padding: const EdgeInsets.symmetric(
@@ -341,8 +340,7 @@ class LoginViewState extends ConsumerState<LoginView> {
                       onPressed: !_isOperationInProgress
                           ? () => _signInWithGoogle()
                           : null,
-                      icon: Brand(Brands.google, size: 20),
-                      label: Text(
+                      child: Text(
                         'Continuar con Google',
                         style: nunitoSansStyle(400, 13),
                       ),
@@ -366,7 +364,6 @@ class LoginViewState extends ConsumerState<LoginView> {
                                 onPressed: !_isOperationInProgress
                                     ? () => _signInWithApple()
                                     : null,
-                                icon: Icon(BoxIcons.bxl_apple, size: 20),
                                 label: Text(
                                   'Continuar con Apple',
                                   style: nunitoSansStyle(400, 13),

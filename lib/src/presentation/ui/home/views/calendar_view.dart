@@ -1,8 +1,8 @@
 // import 'package:badges/badges.dart' as badges;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:running_app/app_localizations_context.dart';
 import 'package:running_app/src/domain/models/running_competition.dart';
 import 'package:running_app/src/presentation/providers/modes/modes_provider.dart';
@@ -213,10 +213,10 @@ class CalendarViewState extends ConsumerState<CalendarView> {
             child: GestureDetector(
               onTap: () =>
                   UrlLauncherUtils.launchWhatsAppUri(context, supportNumber),
-              child: Icon(
-                FontAwesome.whatsapp_brand,
-                color: AppTheme.green,
-                size: 35,
+              child: SvgPicture.asset(
+                'assets/images/whatsapp_icon.svg',
+                width: 32,
+                height: 32,
               ),
 
               // child: userNotificacions.when(
@@ -270,7 +270,7 @@ class CalendarViewState extends ConsumerState<CalendarView> {
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
 
-          children: [Image.asset('assets/images/geltea_icon.png', height: 60)],
+          children: [Image.asset('assets/images/registraTe-logo-horizontal.png', height: 40, fit: BoxFit.contain)],
         ),
       ),
       body: Padding(

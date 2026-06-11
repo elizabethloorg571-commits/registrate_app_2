@@ -63,7 +63,7 @@ class ConfirmEmailScreenState extends ConsumerState<ConfirmEmailScreen> {
                 Center(
                   child: SizedBox(
                     height: responsive.hPercent(10),
-                    child: Image.asset('assets/images/geltea_icon.png'),
+                    child: Image.asset('assets/images/registraTe-logo-horizontal.png', fit: BoxFit.contain),
                   ),
                 ),
                 SizedBox(height: responsive.hp(5)),

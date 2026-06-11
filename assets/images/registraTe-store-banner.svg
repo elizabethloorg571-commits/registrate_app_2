@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500" role="img" aria-labelledby="title desc">
+  <title id="title">RegistraTe store banner</title>
+  <desc id="desc">Store banner for RegistraTe, a ticket sales system for concerts, events and sports.</desc>
+  <defs>
+    <linearGradient id="bannerBg" x1="0" y1="0" x2="1024" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2f0b60"/>
+      <stop offset="0.5" stop-color="#5b21b6"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+    <radialGradient id="goldGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(838 84) rotate(121) scale(368 287)">
+      <stop offset="0" stop-color="#f6c646" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#f6c646" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ticketShade" x1="648" y1="170" x2="954" y2="390" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eee8ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="500" rx="0" fill="url(#bannerBg)"/>
+  <rect width="1024" height="500" fill="url(#goldGlow)"/>
+  <path d="M0 408c180-60 291-38 416 2 142 46 300 81 608-50v140H0z" fill="#210844" opacity="0.28"/>
+  <g opacity="0.18" fill="none" stroke="#fff" stroke-width="2">
+    <path d="M75 112h94M75 154h63M824 423h124M862 382h88"/>
+    <circle cx="171" cy="389" r="40"/>
+    <circle cx="177" cy="384" r="8" fill="#fff" stroke="none"/>
+    <path d="M139 389h64M171 357v64M151 364c28 25 35 50 41 72M191 364c-28 25-35 50-41 72"/>
+    <path d="M302 82v96c0 22-18 40-40 40s-40-18-40-40c0-22 18-40 40-40 9 0 18 3 25 9"/>
+  </g>
+  <g transform="translate(74 92)">
+    <rect x="0" y="0" width="96" height="96" rx="28" fill="#f6c646"/>
+    <g transform="translate(15 21) rotate(-8 34 30)">
+      <path d="M4 20c-2-10 6-20 16-22l50-7c10-1 20 6 21 16l2 12c-9 1-15 9-14 18s9 15 18 14l2 12c1 10-6 20-16 21l-50 7c-10 1-20-6-21-16l-2-12c9-1 15-9 14-18s-9-15-18-14L4 20z" fill="#fff"/>
+      <path d="M40-5l11 82" stroke="#5b21b6" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 12" opacity="0.45"/>
+      <path d="M29 42l13 11 24-30" fill="none" stroke="#5b21b6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+  <g font-family="Inter, SF Pro Display, Segoe UI, Arial, sans-serif">
+    <text x="74" y="270" font-size="94" font-weight="880" letter-spacing="0" fill="#ffffff">Registra<tspan fill="#f6c646">Te</tspan></text>
+    <text x="80" y="333" font-size="29" font-weight="650" letter-spacing="0" fill="#efe7ff">Entradas para conciertos, eventos y deportes</text>
+    <g transform="translate(80 372)" font-size="23" font-weight="760" fill="#2f0b60">
+      <rect x="0" y="0" width="128" height="45" rx="22.5" fill="#ffffff"/>
+      <text x="24" y="31">Conciertos</text>
+      <rect x="144" y="0" width="102" height="45" rx="22.5" fill="#f6c646"/>
+      <text x="169" y="31">Eventos</text>
+      <rect x="262" y="0" width="106" height="45" rx="22.5" fill="#ffffff"/>
+      <text x="287" y="31">Deportes</text>
+    </g>
+  </g>
+  <g transform="translate(704 92) rotate(-8 178 164)">
+    <path d="M20 102c-6-41 22-79 63-85l266-38c41-6 79 23 85 63l10 71c-37 5-63 40-58 77s40 63 77 58l10 71c6 41-23 79-63 85l-266 38c-41 6-79-23-85-63l-10-71c37-5 63-40 58-77s-40-63-77-58l-10-71z" fill="#1f063f" opacity="0.25" transform="translate(0 26)"/>
+    <path d="M20 102c-6-41 22-79 63-85l266-38c41-6 79 23 85 63l10 71c-37 5-63 40-58 77s40 63 77 58l10 71c6 41-23 79-63 85l-266 38c-41 6-79-23-85-63l-10-71c37-5 63-40 58-77s-40-63-77-58l-10-71z" fill="url(#ticketShade)"/>
+    <path d="M15 103c-6-41 22-79 63-85L382-25l22 152-386 55-9-64c-1-5-1-10 0-15z" fill="#f6c646"/>
+    <path d="M242-6l54 381" stroke="#5b21b6" stroke-width="16" stroke-linecap="round" stroke-dasharray="2 37" opacity="0.34"/>
+    <path d="M151 224l52 47 96-120" fill="none" stroke="#5b21b6" stroke-width="39" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M128 116l93-13" stroke="#38106f" stroke-width="22" stroke-linecap="round" opacity="0.72"/>
+    <path d="M329 195l83-12" stroke="#5b21b6" stroke-width="24" stroke-linecap="round"/>
+    <path d="M336 251l64-9" stroke="#5b21b6" stroke-width="24" stroke-linecap="round"/>
+  </g>
+</svg>

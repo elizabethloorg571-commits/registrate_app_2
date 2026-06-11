@@ -50,22 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDAKRILDfKNXjbcTOowNLPM7IzF2lFlz4w',
-    appId: '1:385228720463:android:7c042c1cc8fab042b81d3a',
-    messagingSenderId: '385228720463',
-    projectId: 'run-app-db2eb',
-    storageBucket: 'run-app-db2eb.firebasestorage.app',
+    apiKey: 'AIzaSyDYnS-X0p8KloDWRvHCvj89bEjwXaS75Cc',
+    appId: '1:634142075812:android:f61e9aa61a69889f7fef31',
+    messagingSenderId: '634142075812',
+    projectId: 'registrate-app2',
+    storageBucket: 'registrate-app2.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD1E-yPX8SkZXGqzjsH45vAkYqtM3scm-4',
-    appId: '1:385228720463:ios:dd201fcba281510cb81d3a',
-    messagingSenderId: '385228720463',
-    projectId: 'run-app-db2eb',
-    storageBucket: 'run-app-db2eb.firebasestorage.app',
-    androidClientId: '385228720463-000buv634vdef58rfqr2c7h8q1ekkic4.apps.googleusercontent.com',
-    iosClientId: '385228720463-7cmmsj2htkm1g0u07ld9vkjgbe2ophdv.apps.googleusercontent.com',
-    iosBundleId: 'com.magdata.runApp',
+    apiKey: 'AIzaSyDibwysS6i2u-xXClFVdrdSIfXoRQiAwow',
+    appId: '1:634142075812:ios:661cf81fb318e9677fef31',
+    messagingSenderId: '634142075812',
+    projectId: 'registrate-app2',
+    storageBucket: 'registrate-app2.firebasestorage.app',
+    iosBundleId: 'com.magdata.registraTeApp.RunnerTests',
   );
 
 }

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">RegistraTe app icon</title>
+  <desc id="desc">Purple app icon with a white ticket symbol for event ticket sales.</desc>
+  <defs>
+    <linearGradient id="bg" x1="146" y1="90" x2="878" y2="934" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="0.52" stop-color="#5b21b6"/>
+      <stop offset="1" stop-color="#38106f"/>
+    </linearGradient>
+    <linearGradient id="ticketShade" x1="259" y1="338" x2="782" y2="702" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eee8ff"/>
+    </linearGradient>
+    <clipPath id="ticketClip">
+      <path d="M229 408c-8-55 30-107 86-115l379-54c56-8 108 31 116 86l14 97c-50 7-85 53-78 103 7 49 53 84 103 78l14 97c8 56-31 108-86 116l-379 54c-56 8-108-31-116-86l-14-97c49-7 84-53 77-103-7-50-53-85-102-78l-14-98z"/>
+    </clipPath>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <circle cx="238" cy="230" r="92" fill="#ffffff" opacity="0.08"/>
+  <circle cx="837" cy="782" r="158" fill="#facc15" opacity="0.08"/>
+  <g transform="rotate(-8 512 552)">
+    <path d="M229 408c-8-55 30-107 86-115l379-54c56-8 108 31 116 86l14 97c-50 7-85 53-78 103 7 49 53 84 103 78l14 97c8 56-31 108-86 116l-379 54c-56 8-108-31-116-86l-14-97c49-7 84-53 77-103-7-50-53-85-102-78l-14-98z" fill="#210844" opacity="0.24" transform="translate(0 34)"/>
+    <path d="M229 408c-8-55 30-107 86-115l379-54c56-8 108 31 116 86l14 97c-50 7-85 53-78 103 7 49 53 84 103 78l14 97c8 56-31 108-86 116l-379 54c-56 8-108-31-116-86l-14-97c49-7 84-53 77-103-7-50-53-85-102-78l-14-98z" fill="url(#ticketShade)"/>
+    <g clip-path="url(#ticketClip)">
+      <path d="M217 409c-8-55 31-107 86-115l432-62 29 205-548 78-13-92c-1-5-1-9-1-14z" fill="#f6c646"/>
+      <path d="M546 260l72 506" stroke="#5b21b6" stroke-width="22" stroke-linecap="round" stroke-dasharray="2 50" opacity="0.35"/>
+      <path d="M667 541l87-12" stroke="#5b21b6" stroke-width="30" stroke-linecap="round" opacity="0.92"/>
+      <path d="M675 611l117-17" stroke="#5b21b6" stroke-width="30" stroke-linecap="round" opacity="0.92"/>
+      <path d="M361 577l73 66 135-168" fill="none" stroke="#5b21b6" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M327 433l131-19" stroke="#38106f" stroke-width="28" stroke-linecap="round" opacity="0.72"/>
+      <path d="M332 714l98-14" stroke="#38106f" stroke-width="24" stroke-linecap="round" opacity="0.2"/>
+    </g>
+  </g>
+</svg>

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/marketplace_button.dart';
@@ -135,31 +134,31 @@ class _MarketplaceProfileScreenState extends State<MarketplaceProfileScreen> {
               title: 'Mi Cuenta',
               items: [
                 _MenuItem(
-                  icon: BoxIcons.bx_user,
+                  icon: Icons.person,
                   title: 'Información Personal',
                   subtitle: 'Editar nombre, teléfono y email',
                   onTap: _navigateToEditProfile,
                 ),
                 _MenuItem(
-                  icon: BoxIcons.bx_shopping_bag,
+                  icon: Icons.shopping_bag,
                   title: 'Mis Pedidos',
                   subtitle: 'Ver historial de compras',
                   onTap: _navigateToOrders,
                 ),
                 _MenuItem(
-                  icon: BoxIcons.bx_heart,
+                  icon: Icons.favorite,
                   title: 'Mis Favoritos',
                   subtitle: 'Ver productos guardados',
                   onTap: _navigateToFavorites,
                 ),
                 _MenuItem(
-                  icon: BoxIcons.bx_map,
+                  icon: Icons.location_on,
                   title: 'Direcciones',
                   subtitle: 'Gestionar direcciones de envío',
                   onTap: _navigateToAddresses,
                 ),
                 _MenuItem(
-                  icon: BoxIcons.bx_credit_card,
+                  icon: Icons.credit_card,
                   title: 'Métodos de Pago',
                   subtitle: 'Tarjetas y métodos guardados',
                   onTap: _navigateToPaymentMethods,
@@ -173,13 +172,13 @@ class _MarketplaceProfileScreenState extends State<MarketplaceProfileScreen> {
               title: 'Preferencias',
               items: [
                 _MenuItem(
-                  icon: BoxIcons.bx_bell,
+                  icon: Icons.notifications,
                   title: 'Notificaciones',
                   subtitle: 'Configurar alertas y notificaciones',
                   onTap: _navigateToNotifications,
                 ),
                 _MenuItem(
-                  icon: BoxIcons.bx_moon,
+                  icon: Icons.dark_mode,
                   title: 'Modo Oscuro',
                   subtitle: 'Próximamente disponible',
                   trailing: const Switch(value: false, onChanged: null),
@@ -194,19 +193,19 @@ class _MarketplaceProfileScreenState extends State<MarketplaceProfileScreen> {
               title: 'Soporte',
               items: [
                 _MenuItem(
-                  icon: BoxIcons.bx_help_circle,
+                  icon: Icons.help_outline,
                   title: 'Centro de Ayuda',
                   subtitle: 'Preguntas frecuentes y soporte',
                   onTap: _navigateToHelp,
                 ),
                 _MenuItem(
-                  icon: BoxIcons.bx_message_detail,
+                  icon: Icons.message,
                   title: 'Contáctanos',
                   subtitle: 'Chat, email o teléfono',
                   onTap: _navigateToContact,
                 ),
                 _MenuItem(
-                  icon: BoxIcons.bx_file,
+                  icon: Icons.description,
                   title: 'Términos y Condiciones',
                   subtitle: 'Políticas y privacidad',
                   onTap: _navigateToTerms,
@@ -233,7 +232,7 @@ class _MarketplaceProfileScreenState extends State<MarketplaceProfileScreen> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Icon(
-                            BoxIcons.bx_grid_alt,
+                            Icons.grid_on,
                             color: Colors.blue[700],
                           ),
                         ),
@@ -277,7 +276,7 @@ class _MarketplaceProfileScreenState extends State<MarketplaceProfileScreen> {
                 onPressed: _logout,
                 variant: MarketplaceButtonVariant.outline,
                 size: MarketplaceButtonSize.large,
-                icon: BoxIcons.bx_log_out,
+                icon: Icons.logout,
               ),
             ),
 
@@ -329,7 +328,7 @@ class _MarketplaceProfileScreenState extends State<MarketplaceProfileScreen> {
                       backgroundColor: Colors.grey[200],
                       child: _currentUser?.photoURL == null
                           ? Icon(
-                              BoxIcons.bx_user,
+                              Icons.person,
                               size: 40,
                               color: Colors.grey[400],
                             )
@@ -349,7 +348,7 @@ class _MarketplaceProfileScreenState extends State<MarketplaceProfileScreen> {
                           border: Border.all(color: AppTheme.primary, width: 2),
                         ),
                         child: const Icon(
-                          BoxIcons.bx_camera,
+                          Icons.camera,
                           size: 16,
                           color: AppTheme.primary,
                         ),
