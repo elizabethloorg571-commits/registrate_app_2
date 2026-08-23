@@ -68,35 +68,28 @@ class _CompetitionCardState extends ConsumerState<CompetitionCard> {
           : null,
       child: Stack(
         children: [
-          Center(
-            child: Container(
-              width: widget.detailsOnPressedAvailable
-                  ? size.width * 0.5
-                  : size.width,
-              margin: EdgeInsets.only(
-                right: widget.responsive.wp(4),
-                top: widget.responsive.hp(1),
-                bottom: widget.detailsOnPressedAvailable
-                    ? widget.responsive.hp(15)
-                    : widget.responsive.hp(8),
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppTheme.primary.withValues(
-                      alpha: widget.detailsOnPressedAvailable ? 0.36 : 0.2,
+          if (widget.detailsOnPressedAvailable)
+            Center(
+              child: Container(
+                width: size.width * 0.5,
+                margin: EdgeInsets.only(
+                  right: widget.responsive.wp(4),
+                  top: widget.responsive.hp(1),
+                  bottom: widget.responsive.hp(15),
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppTheme.primary.withValues(alpha: 0.36),
+                      blurRadius: 10,
+                      spreadRadius: 4,
+                      offset: const Offset(0, 4),
                     ),
-                    blurRadius: 10,
-                    spreadRadius: widget.detailsOnPressedAvailable ? 4 : 2,
-                    offset: widget.detailsOnPressedAvailable
-                        ? const Offset(0, 4)
-                        : const Offset(0, 0),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
           Column(
             children: [
               Expanded(

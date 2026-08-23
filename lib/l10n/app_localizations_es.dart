@@ -141,7 +141,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get home => 'Inicio';
 
   @override
-  String get runs => 'Carreras';
+  String get runs => 'Eventos';
 
   @override
   String get type => 'Tipo';
@@ -231,7 +231,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get selectMonthAndYear => 'Selecciona mes y año';
 
   @override
-  String get upcomingRaces => 'Próximas carreras';
+  String get upcomingRaces => 'Próximos Eventos';
 
   @override
   String get viewAll => 'Ver todas';
@@ -356,7 +356,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get invalidEmail => 'Correo electrónico inválido';
 
   @override
-  String get selectDistance => 'Selecciona distancia';
+  String get selectDistance => 'Seleccionar tipo';
 
   @override
   String get select => 'Seleccionar';

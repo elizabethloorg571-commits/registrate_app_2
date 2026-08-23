@@ -25,7 +25,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.magdata.registraTeApp"
+    namespace = "com.magdata.runApp"
     compileSdk = 36
     ndkVersion = "28.2.13676358"
 
@@ -41,13 +41,13 @@ android {
 
     defaultConfig {
         multiDexEnabled = true
-        applicationId = "com.magdata.registraTeApp"
+        applicationId = "com.magdata.runApp"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = 36
-        versionCode = 28
-        versionName = "1.2.7"
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
         // Ship only the ABIs you need (Play will deliver per-ABI automatically for AAB)
         ndk {
             // For release, these two are usually enough

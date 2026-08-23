@@ -14,12 +14,10 @@ import 'package:running_app/src/presentation/providers/inscriptions/inscriptions
 import 'package:running_app/src/presentation/providers/profile/profile_provider.dart';
 import 'package:running_app/src/presentation/ui/inscriptions/datafast/datafast_payment_screen.dart';
 import 'package:running_app/src/presentation/ui/inscriptions/deUna/deuna_payment_screen.dart';
-import 'package:running_app/src/presentation/widgets/competition_card.dart';
 import 'package:running_app/src/presentation/widgets/global_widgets.dart';
 import 'package:running_app/config/theme/app_theme.dart';
 import 'package:running_app/config/theme/fonts.dart';
 import 'package:running_app/src/utils/navigator_key.dart';
-import 'package:running_app/src/utils/responsive.dart';
 import 'package:running_app/src/utils/url_launcher_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -154,6 +152,18 @@ class InscriptionCheckoutScreenState
     return _calculateDiscountedSubtotal() + _calculateIVA();
   }
 
+  double get _surchargeRate {
+    switch (_selectedPaymentMethod) {
+      case 'datafast': return 0.04;
+      case 'deuna': return 0.02;
+      default: return 0.0;
+    }
+  }
+
+  double _calculateSurcharge() => _calculateTotal() * _surchargeRate;
+
+  double _calculateFinalTotal() => _calculateTotal() + _calculateSurcharge();
+
   double _parseAmount(dynamic value) {
     if (value == null) return 0.0;
     if (value is num) return value.toDouble();
@@ -282,7 +292,7 @@ class InscriptionCheckoutScreenState
       'items': productsPayload,
       "logic": "i",
       'billingData': widget.billingData.toJson(),
-      'total': _calculateTotal(),
+      'total': _calculateFinalTotal(),
       'subtotal': discountedSubtotal,
       'iva': iva,
       'finalDescuento': _discount,
@@ -564,10 +574,9 @@ class InscriptionCheckoutScreenState
     final productsPricing = _calculateProductsPricing();
     final discountedSubtotal = _calculateDiscountedSubtotal();
     final iva = _calculateIVA();
-    final total = _calculateTotal();
+    final surcharge = _calculateSurcharge();
+    final finalTotal = _calculateFinalTotal();
     final userProvider = ref.watch(userProfileProvider);
-    final responsive = Responsive(context);
-
     return userProvider.when(
       skipLoadingOnRefresh: false,
       data: (user) {
@@ -640,16 +649,7 @@ class InscriptionCheckoutScreenState
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Competition card
-                              SizedBox(
-                                height: 200,
-                                child: CompetitionCard(
-                                  competition: widget.competition,
-                                  responsive: responsive,
-                                  detailsOnPressedAvailable: false,
-                                ),
-                              ),
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 4),
 
                               if (widget.competition.isApplyCodeDiscount ??
                                   false) ...[
@@ -907,6 +907,31 @@ class InscriptionCheckoutScreenState
 
                                     const SizedBox(height: 8),
 
+                                    // Recargo por método de pago
+                                    if (surcharge > 0) ...[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Recargo (${(_surchargeRate * 100).toStringAsFixed(0)}%)',
+                                            style: nunitoSansBodySmallStyle(
+                                              context,
+                                              color: const Color(0xFF856404),
+                                            ),
+                                          ),
+                                          Text(
+                                            '+\$${surcharge.toStringAsFixed(2)}',
+                                            style: nunitoSansBodySmallStyle(
+                                              context,
+                                              color: const Color(0xFF856404),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 4),
+                                    ],
+
                                     // Total
                                     Row(
                                       mainAxisAlignment:
@@ -919,7 +944,7 @@ class InscriptionCheckoutScreenState
                                           ),
                                         ),
                                         Text(
-                                          '\$${total.toStringAsFixed(2)}',
+                                          '\$${finalTotal.toStringAsFixed(2)}',
                                           style: nunitoSansBodySmallStyle(
                                             context,
                                             fontWeight: FontWeight.w700,
@@ -952,8 +977,9 @@ class InscriptionCheckoutScreenState
                                   title: 'Tarjeta de crédito o débito',
                                   subtitle: 'Todas las entidades bancarias',
                                   value: 'datafast',
+                                  badge: '+4% recargo',
                                 ),
-                                const SizedBox(height: 12),
+                                const SizedBox(height: 8),
                               ],
 
                               // DeUna
@@ -967,6 +993,7 @@ class InscriptionCheckoutScreenState
                                   title: 'DeUna',
                                   subtitle: 'App de pagos',
                                   value: 'deuna',
+                                  badge: '+2% recargo',
                                 ),
                                 const SizedBox(height: 12),
                               ],
@@ -982,6 +1009,8 @@ class InscriptionCheckoutScreenState
                                   title: 'Transferencia bancaria',
                                   subtitle: 'Sube tu comprobante de pago',
                                   value: 'manual',
+                                  badge: '0% comisión',
+                                  badgeIsGreen: true,
                                 ),
                                 const SizedBox(height: 12),
                               ],
@@ -1410,6 +1439,8 @@ class InscriptionCheckoutScreenState
     required String title,
     required String subtitle,
     required String value,
+    String? badge,
+    bool badgeIsGreen = false,
   }) {
     final isSelected = _selectedPaymentMethod == value;
 
@@ -1420,7 +1451,7 @@ class InscriptionCheckoutScreenState
         });
       },
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -1451,6 +1482,37 @@ class InscriptionCheckoutScreenState
                     subtitle,
                     style: nunitoSansStyle(400, 12, color: AppTheme.grey),
                   ),
+                  if (badge != null) ...[
+                    const SizedBox(height: 6),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: badgeIsGreen
+                            ? Colors.transparent
+                            : const Color(0xFFFFF3CD),
+                        border: Border.all(
+                          color: badgeIsGreen
+                              ? const Color(0xFF28A745)
+                              : const Color(0xFFFFC107),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        badge,
+                        style: nunitoSansStyle(
+                          600,
+                          11,
+                          color: badgeIsGreen
+                              ? const Color(0xFF28A745)
+                              : const Color(0xFF856404),
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),

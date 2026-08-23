@@ -33,7 +33,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.385228720463-7cmmsj2htkm1g0u07ld9vkjgbe2ophdv</string>
+				<string>com.googleusercontent.apps.385228720463-k485elp6j7ftquikb12c6rehp0nc08q6</string>
 			</array>
 		</dict>
 		<dict>
@@ -50,7 +50,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>GIDClientID</key>
-	<string>385228720463-7cmmsj2htkm1g0u07ld9vkjgbe2ophdv.apps.googleusercontent.com</string>
+	<string>385228720463-k485elp6j7ftquikb12c6rehp0nc08q6.apps.googleusercontent.com</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>

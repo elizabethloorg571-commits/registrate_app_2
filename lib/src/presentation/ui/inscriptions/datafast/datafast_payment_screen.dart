@@ -6,7 +6,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:running_app/src/data/constants/constants.dart';
 import 'package:running_app/src/presentation/ui/profile/utils/money_utils.dart';
 import 'package:running_app/config/theme/fonts.dart';
-import 'package:webview_flutter_plus/webview_flutter_plus.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class DatafastPaymentScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class DatafastPaymentScreen extends StatefulWidget {
 }
 
 class _DatafastPaymentScreenState extends State<DatafastPaymentScreen> {
-  late final WebViewControllerPlus _controller;
+  late final WebViewController _controller;
   bool _resultHandled = false;
 
   String? _unwrapJsResult(dynamic r) {
@@ -79,7 +79,7 @@ class _DatafastPaymentScreenState extends State<DatafastPaymentScreen> {
     );
     if (kDebugMode) log('🔗 Loading Datafast URL: $uri');
 
-    _controller = WebViewControllerPlus()
+    _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
         NavigationDelegate(

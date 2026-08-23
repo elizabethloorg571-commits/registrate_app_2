@@ -449,6 +449,7 @@ class CompetitionSetting {
   final List<Distance> distance;
   final bool gender;
   final bool isTshirt;
+  final bool isDisabled;
   final List<TshirtDetail> detailsTshirt;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -459,6 +460,7 @@ class CompetitionSetting {
     required this.distance,
     required this.gender,
     required this.isTshirt,
+    this.isDisabled = false,
     required this.detailsTshirt,
     required this.createdAt,
     required this.updatedAt,
@@ -471,6 +473,7 @@ class CompetitionSetting {
       'distance': distance.map((d) => d.toJson()).toList(),
       'gender': gender,
       'is_tshirt': isTshirt,
+      'is_disabled': isDisabled,
       'details_tshirt': detailsTshirt.map((t) => t.toJson()).toList(),
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
@@ -488,6 +491,7 @@ class CompetitionSetting {
           [],
       gender: json['gender'] ?? false,
       isTshirt: json['is_tshirt'] ?? false,
+      isDisabled: json['is_disabled'] ?? false,
       detailsTshirt:
           (json['details_tshirt'] as List<dynamic>?)
               ?.map((t) => TshirtDetail.fromJson(t))

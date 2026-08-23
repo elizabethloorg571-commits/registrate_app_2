@@ -23,9 +23,13 @@ bool needsUpdate = false;
 class AppInitializer {
   static Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    try {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+    } on FirebaseException catch (e) {
+      if (e.code != 'duplicate-app') rethrow;
+    }
     FlutterError.onError = (FlutterErrorDetails details) {
       // Log específico para errores de imágenes de red
       if (details.exception.toString().contains('No host specified in URI') ||
@@ -172,10 +176,10 @@ Future<void> checkForUpdates() async {
     final result = await PlayxVersionUpdate.checkVersion(
       options: PlayxUpdateOptions(
         forceUpdate: true,
-        androidPackageName: 'com.magdata.registraTeApp',
+        androidPackageName: 'com.magdata.runApp',
         iosBundleId: 'com.magdata.registraApp',
         country: 'EC',
-      ), 
+      ),
     );
 
     result.when(

@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '634142075812',
     projectId: 'registrate-app2',
     storageBucket: 'registrate-app2.firebasestorage.app',
-    iosBundleId: 'com.magdata.registraTeApp.RunnerTests',
+    iosBundleId: 'com.magdata.runApp.RunnerTests',
   );
 
 }

@@ -2,18 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>385228720463-k485elp6j7ftquikb12c6rehp0nc08q6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.385228720463-k485elp6j7ftquikb12c6rehp0nc08q6</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>385228720463-000buv634vdef58rfqr2c7h8q1ekkic4.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDibwysS6i2u-xXClFVdrdSIfXoRQiAwow</string>
+	<string>AIzaSyD1E-yPX8SkZXGqzjsH45vAkYqtM3scm-4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>634142075812</string>
+	<string>385228720463</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.magdata.registraTeApp.RunnerTests</string>
+	<string>com.magdata.runApp</string>
 	<key>PROJECT_ID</key>
-	<string>registrate-app2</string>
+	<string>run-app-db2eb</string>
 	<key>STORAGE_BUCKET</key>
-	<string>registrate-app2.firebasestorage.app</string>
+	<string>run-app-db2eb.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:634142075812:ios:661cf81fb318e9677fef31</string>
+	<string>1:385228720463:ios:c303323047f50c21b81d3a</string>
 </dict>
 </plist>

@@ -32,6 +32,9 @@ migrate_working_dir/
 .pub/
 /build/
 /coverage/
+/ios/build/
+/ios/Pods/
+/macos/Pods/
 
 # Symbolication related
 app.*.symbols

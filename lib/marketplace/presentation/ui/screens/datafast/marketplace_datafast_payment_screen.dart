@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:webview_flutter_plus/webview_flutter_plus.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../utils/money_utils.dart';
@@ -31,7 +31,7 @@ class MarketplaceDatafastPaymentScreen extends StatefulWidget {
 
 class _MarketplaceDatafastPaymentScreenState
     extends State<MarketplaceDatafastPaymentScreen> {
-  late final WebViewControllerPlus _controller;
+  late final WebViewController _controller;
   bool _resultHandled = false;
 
   String? _unwrapJsResult(dynamic r) {
@@ -82,7 +82,7 @@ class _MarketplaceDatafastPaymentScreenState
     );
     if (kDebugMode) log('🔗 Loading Datafast URL: $uri');
 
-    _controller = WebViewControllerPlus()
+    _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
         NavigationDelegate(

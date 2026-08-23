@@ -193,7 +193,7 @@ class _BankTransferPaymentScreenState extends State<BankTransferPaymentScreen> {
         'Content-Type': 'application/json',
       };
       log("headers: $headers");
-      final body = jsonEncode({'voucher': photoUrl});
+      final body = jsonEncode({'voucher': photoUrl, 'logic': 'a'});
       log("body: $body");
       final response = await HttpUtils.put(url, headers: headers, body: body);
       log("response body: ${response.body}");

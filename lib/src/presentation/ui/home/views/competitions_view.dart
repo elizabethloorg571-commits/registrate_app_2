@@ -274,150 +274,165 @@ class CompetitionsViewState extends ConsumerState<CompetitionsView> {
       }
     }
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                CompetitionDetailScreen(competition: competition),
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // Imagen/Logo de la empresa
-          Container(
-            width: 85,
-            height: 170,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.horizontal(
-                left: Radius.circular(16),
-              ),
-              color: AppTheme.lightModeLightBlue,
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 2),
             ),
-            child: competition.image.isNotEmpty
-                ? ClipRRect(
-                    borderRadius: const BorderRadius.horizontal(
-                      left: Radius.circular(16),
-                    ),
-                    child: Image.network(
-                      competition.image,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return _buildDefaultLogo();
-                      },
-                    ),
-                  )
-                : _buildDefaultLogo(),
-          ),
-          // Información de la carrera
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          competition.title,
-                          style: nunitoSansStyle(
-                            600,
-                            16,
-                            color: AppTheme.lightModeBlack,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Imagen/Logo de la empresa
+            Container(
+              width: 85,
+              height: 170,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.horizontal(
+                  left: Radius.circular(16),
+                ),
+                color: AppTheme.lightModeLightBlue,
+              ),
+              child: competition.image.isNotEmpty
+                  ? ClipRRect(
+                      borderRadius: const BorderRadius.horizontal(
+                        left: Radius.circular(16),
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppTheme.lightModeBlue.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              month,
-                              style: nunitoSansStyle(
-                                700,
-                                9,
-                                color: AppTheme.lightModeBlue,
-                              ),
-                            ),
-                            Text(
-                              day,
-                              style: nunitoSansStyle(
-                                700,
-                                14,
-                                color: AppTheme.lightModeBlack,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${competition.venueCity}, ${competition.venueDetails}',
-                    style: nunitoSansStyle(400, 12, color: Colors.grey[600]!),
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => CompetitionDetailScreen(
-                                competition: competition,
-                              ),
-                            ),
-                          );
+                      child: Image.network(
+                        competition.image,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return _buildDefaultLogo();
                         },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [AppTheme.primary900, AppTheme.secondary],
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                      ),
+                    )
+                  : _buildDefaultLogo(),
+            ),
+            // Información de la carrera
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
                           child: Text(
-                            context.l1on.viewMore,
+                            competition.title,
                             style: nunitoSansStyle(
                               600,
-                              12,
-                              color: Colors.white,
+                              16,
+                              color: AppTheme.lightModeBlack,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppTheme.lightModeBlue.withValues(
+                              alpha: 0.1,
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                month,
+                                style: nunitoSansStyle(
+                                  700,
+                                  9,
+                                  color: AppTheme.lightModeBlue,
+                                ),
+                              ),
+                              Text(
+                                day,
+                                style: nunitoSansStyle(
+                                  700,
+                                  14,
+                                  color: AppTheme.lightModeBlack,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${competition.venueCity}, ${competition.venueDetails}',
+                      style: nunitoSansStyle(400, 12, color: Colors.grey[600]!),
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => CompetitionDetailScreen(
+                                  competition: competition,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  AppTheme.primary900,
+                                  AppTheme.secondary,
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              context.l1on.viewMore,
+                              style: nunitoSansStyle(
+                                600,
+                                12,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

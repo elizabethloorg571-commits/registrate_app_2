@@ -1,26 +1,103 @@
 {
   "project_info": {
-    "project_number": "634142075812",
-    "project_id": "registrate-app2",
-    "storage_bucket": "registrate-app2.firebasestorage.app"
+    "project_number": "385228720463",
+    "project_id": "run-app-db2eb",
+    "storage_bucket": "run-app-db2eb.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:634142075812:android:f61e9aa61a69889f7fef31",
+        "mobilesdk_app_id": "1:385228720463:android:61c5149d424852a5b81d3a",
         "android_client_info": {
-          "package_name": "com.magdata.registraTeApp"
+          "package_name": "com.magdata.runApp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "385228720463-8cr432ihru6t0nj9m8j6qres87uh389q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDYnS-X0p8KloDWRvHCvj89bEjwXaS75Cc"
+          "current_key": "AIzaSyDAKRILDfKNXjbcTOowNLPM7IzF2lFlz4w"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385228720463-8cr432ihru6t0nj9m8j6qres87uh389q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "385228720463-7cmmsj2htkm1g0u07ld9vkjgbe2ophdv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.magdata.runApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385228720463:android:7c042c1cc8fab042b81d3a",
+        "android_client_info": {
+          "package_name": "com.magdata.runApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385228720463-000buv634vdef58rfqr2c7h8q1ekkic4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magdata.runApp",
+            "certificate_hash": "971b1ad7c1c85247448edfb462a47801950b0e81"
+          }
+        },
+        {
+          "client_id": "385228720463-10vlnj6pg1os3kgl05ro3ebkli9qnj3i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magdata.runApp",
+            "certificate_hash": "9c4ad56b4249559c142efa755812776e5934c368"
+          }
+        },
+        {
+          "client_id": "385228720463-8pfu0kdot3ebeopufh3knadfd81u0111.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magdata.runApp",
+            "certificate_hash": "13910fdfe6ed40253f225b71830a7397df9f5c54"
+          }
+        },
+        {
+          "client_id": "385228720463-8cr432ihru6t0nj9m8j6qres87uh389q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAKRILDfKNXjbcTOowNLPM7IzF2lFlz4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385228720463-8cr432ihru6t0nj9m8j6qres87uh389q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "385228720463-7cmmsj2htkm1g0u07ld9vkjgbe2ophdv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.magdata.runApp"
+              }
+            }
+          ]
         }
       }
     }

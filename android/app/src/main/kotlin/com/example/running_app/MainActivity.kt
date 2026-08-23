@@ -1,4 +1,4 @@
-package com.magdata.com.magdata.registraTeApp
+package com.magdata.runApp
 
 import io.flutter.embedding.android.FlutterActivity
 

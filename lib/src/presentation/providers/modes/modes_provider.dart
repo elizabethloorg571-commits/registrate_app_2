@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:running_app/src/domain/models/bank_transfer_info.dart';
 
-final bottomNavigationIndexProvider = StateProvider<int>((ref) => 0);
+final bottomNavigationIndexProvider = StateProvider<int>((ref) => 1);
 
 final ticketBuyingModeEnabledProvider = StateProvider<bool>((ref) => false);
 

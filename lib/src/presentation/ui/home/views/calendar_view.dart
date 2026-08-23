@@ -270,7 +270,13 @@ class CalendarViewState extends ConsumerState<CalendarView> {
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
 
-          children: [Image.asset('assets/images/registraTe-logo-horizontal.png', height: 40, fit: BoxFit.contain)],
+          children: [
+            Image.asset(
+              'assets/images/registraTe-logo-horizontal.png',
+              height: 40,
+              fit: BoxFit.contain,
+            ),
+          ],
         ),
       ),
       body: Padding(

@@ -74,7 +74,7 @@ class CompetitionDetailScreenState
     Responsive responsive,
   ) {
     return SliverAppBar(
-      expandedHeight: responsive.hPercent(25),
+      expandedHeight: responsive.hPercent(20),
       pinned: true,
       backgroundColor: AppTheme.white950,
       leading: IconButton(
@@ -460,7 +460,7 @@ class CompetitionDetailScreenState
                       competition.longitude,
                     ),
               child: Ink(
-                height: responsive.hPercent(25),
+                height: responsive.hPercent(18),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   border: Border.all(

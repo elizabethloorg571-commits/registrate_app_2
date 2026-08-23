@@ -7,21 +7,22 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:running_app/marketplace/domain/models/cart_item.dart';
 import 'package:running_app/marketplace/domain/models/marketplace_order.dart';
 import 'package:running_app/marketplace/domain/models/marketplace_product.dart';
 import 'package:running_app/app_localizations_context.dart';
+import 'package:running_app/services/image_upload_service.dart';
+import 'package:running_app/services/shared_service.dart';
 import 'package:running_app/src/domain/models/running_competition.dart';
 import 'package:running_app/src/presentation/ui/inscriptions/inscription_checkout_screen.dart';
 import 'package:running_app/src/presentation/ui/inscriptions/invoice_data_screen.dart';
-import 'package:running_app/src/presentation/widgets/competition_card.dart';
 import 'package:running_app/src/presentation/widgets/custom_text_field.dart';
 import 'package:running_app/src/presentation/widgets/global_widgets.dart';
 import 'package:running_app/config/theme/app_theme.dart';
 import 'package:running_app/config/theme/fonts.dart';
 import 'package:running_app/config/theme/helpers/hex_color.dart';
 import 'package:running_app/src/utils/navigator_key.dart';
-import 'package:running_app/src/utils/responsive.dart';
 
 import '../../../../marketplace/data/api/marketplace_api_service.dart';
 import '../home/utils/home_svg_files.dart';
@@ -54,6 +55,16 @@ class InscriptionScreenState extends ConsumerState<InscriptionScreen> {
   DateTime? _selectedBirthDate;
   Distance? _selectedDistance;
   String? _selectedGender;
+  final _clubController = TextEditingController();
+  final _emergencyContactNameController = TextEditingController();
+  final _emergencyContactPhoneController = TextEditingController();
+  XFile? _lastRaceEvidenceFile;
+  String? _lastRaceEvidenceUrl;
+  bool _isUploadingLastRaceEvidence = false;
+  XFile? _disabilityEvidenceFile;
+  String? _disabilityEvidenceUrl;
+  bool _isUploadingDisabilityEvidence = false;
+  bool _showDisabilityEvidenceError = false;
 
   // FocusNode para controlar el foco
   final FocusNode _dummyFocusNode = FocusNode();
@@ -109,6 +120,9 @@ class InscriptionScreenState extends ConsumerState<InscriptionScreen> {
     _cedulaController.dispose();
     _celularController.dispose();
     _emailController.dispose();
+    _clubController.dispose();
+    _emergencyContactNameController.dispose();
+    _emergencyContactPhoneController.dispose();
     _dummyFocusNode.dispose();
     super.dispose();
   }
@@ -186,6 +200,17 @@ class InscriptionScreenState extends ConsumerState<InscriptionScreen> {
         if (_selectedSetting?.isTshirt == true && _selectedTshirtSize == null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(context.l1on.pleaseSelectASize)),
+          );
+          return false;
+        }
+        if (_selectedSetting?.isDisabled == true &&
+            _disabilityEvidenceUrl == null) {
+          setState(() => _showDisabilityEvidenceError = true);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Por favor sube la evidencia de discapacidad'),
+              backgroundColor: Colors.red,
+            ),
           );
           return false;
         }
@@ -381,12 +406,26 @@ class InscriptionScreenState extends ConsumerState<InscriptionScreen> {
                     SvgPicture.string(kCategoryIconSvg),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: Text(
-                        setting.category,
-                        style: nunitoSansTitleSmallStyle(
-                          context,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            setting.category,
+                            style: nunitoSansTitleSmallStyle(
+                              context,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            _categoryPriceLabel(setting),
+                            style: nunitoSansStyle(
+                              600,
+                              13,
+                              color: AppTheme.primary,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Icon(Icons.chevron_right, color: AppTheme.grey, size: 24),
@@ -400,6 +439,21 @@ class InscriptionScreenState extends ConsumerState<InscriptionScreen> {
     );
   }
 
+  String _categoryPriceLabel(CompetitionSetting setting) {
+    if (setting.distance.isEmpty) return '';
+
+    final prices = setting.distance.map((d) => d.price).toList();
+    final minPrice = prices.reduce((a, b) => a < b ? a : b);
+    final hasMultiplePrices = prices.toSet().length > 1;
+
+    final priceText = hasMultiplePrices
+        ? 'Desde \$${minPrice.toStringAsFixed(2)}'
+        : '\$${minPrice.toStringAsFixed(2)}';
+
+    final isApplyInvoice = widget.competition.isApplyInvoice ?? false;
+    return isApplyInvoice ? '$priceText + IVA' : priceText;
+  }
+
   // STEP 2: Datos personales + Distancia + Género
   Widget _buildPersonalDataStep() {
     return SingleChildScrollView(
@@ -409,11 +463,6 @@ class InscriptionScreenState extends ConsumerState<InscriptionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              context.l1on.fullName,
-              style: nunitoSansStyle(700, 24, color: AppTheme.lightModeBlack),
-            ),
-            const SizedBox(height: 24),
             CustomTextField(
               label: context.l1on.fullName,
               controller: _nombreController,
@@ -460,30 +509,328 @@ class InscriptionScreenState extends ConsumerState<InscriptionScreen> {
               // Campo de Género con BottomSheet
               _buildGenderSelector(),
             ],
+            const SizedBox(height: 20),
+            CustomTextField(
+              label: 'Club o Empresa (opcional)',
+              controller: _clubController,
+            ),
+            const SizedBox(height: 20),
+            CustomTextField(
+              label: 'Nombre de Contacto de Emergencia (opcional)',
+              controller: _emergencyContactNameController,
+            ),
+            const SizedBox(height: 20),
+            CustomTextField(
+              label: 'Celular de Contacto de Emergencia (opcional)',
+              controller: _emergencyContactPhoneController,
+              keyboardType: TextInputType.phone,
+            ),
+            const SizedBox(height: 20),
+            _buildEvidenceField(
+              label: 'Evidencia de tiempo de última competencia (opcional)',
+              isRequired: false,
+              file: _lastRaceEvidenceFile,
+              isUploading: _isUploadingLastRaceEvidence,
+              hasError: false,
+              placeholder: 'Subir foto de tu último tiempo',
+              onTap: () =>
+                  _showEvidencePickerOptions(isDisabilityEvidence: false),
+            ),
+            if (_selectedSetting?.isDisabled == true) ...[
+              const SizedBox(height: 20),
+              _buildEvidenceField(
+                label: 'Subir evidencia de discapacidad',
+                isRequired: true,
+                file: _disabilityEvidenceFile,
+                isUploading: _isUploadingDisabilityEvidence,
+                hasError:
+                    _showDisabilityEvidenceError &&
+                    _disabilityEvidenceUrl == null,
+                placeholder: 'Subir foto de evidencia',
+                onTap: () =>
+                    _showEvidencePickerOptions(isDisabilityEvidence: true),
+              ),
+            ],
           ],
         ),
       ),
     );
   }
 
+  Widget _buildEvidenceField({
+    required String label,
+    required bool isRequired,
+    required XFile? file,
+    required bool isUploading,
+    required bool hasError,
+    required String placeholder,
+    required VoidCallback onTap,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(
+          text: TextSpan(
+            text: label,
+            style: nunitoSansStyle(600, 14, color: AppTheme.lightModeBlack),
+            children: isRequired
+                ? [
+                    TextSpan(
+                      text: ' *',
+                      style: nunitoSansStyle(600, 14, color: Colors.red),
+                    ),
+                  ]
+                : null,
+          ),
+        ),
+        const SizedBox(height: 8),
+        GestureDetector(
+          onTap: isUploading ? null : onTap,
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: hasError
+                    ? Colors.red
+                    : AppTheme.grey.withValues(alpha: 0.3),
+                width: hasError ? 1.5 : 1,
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.insert_drive_file_outlined,
+                  color: AppTheme.grey,
+                  size: 20,
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    isUploading
+                        ? 'Subiendo...'
+                        : (file != null ? file.name : placeholder),
+                    style: nunitoSansStyle(
+                      400,
+                      14,
+                      color: file != null
+                          ? AppTheme.lightModeBlack
+                          : AppTheme.grey,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                if (isUploading)
+                  const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                else if (file != null)
+                  Icon(Icons.check_circle, color: AppTheme.primary, size: 20),
+              ],
+            ),
+          ),
+        ),
+        if (hasError) ...[
+          const SizedBox(height: 6),
+          Text(
+            'Por favor sube la evidencia de discapacidad',
+            style: nunitoSansStyle(400, 12, color: Colors.red),
+          ),
+        ],
+      ],
+    );
+  }
+
+  void _showEvidencePickerOptions({required bool isDisabilityEvidence}) {
+    showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 40,
+                height: 4,
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: AppTheme.grey.withValues(alpha: 0.4),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              ListTile(
+                leading: Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: AppTheme.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Icon(
+                    Icons.camera_alt_outlined,
+                    color: AppTheme.primary,
+                  ),
+                ),
+                title: Text(
+                  'Tomar foto',
+                  style: nunitoSansStyle(
+                    600,
+                    15,
+                    color: AppTheme.lightModeBlack,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickAndUploadEvidence(
+                    source: ImageSource.camera,
+                    isDisabilityEvidence: isDisabilityEvidence,
+                  );
+                },
+              ),
+              ListTile(
+                leading: Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: AppTheme.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Icon(
+                    Icons.photo_library_outlined,
+                    color: AppTheme.primary,
+                  ),
+                ),
+                title: Text(
+                  'Elegir de galería',
+                  style: nunitoSansStyle(
+                    600,
+                    15,
+                    color: AppTheme.lightModeBlack,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickAndUploadEvidence(
+                    source: ImageSource.gallery,
+                    isDisabilityEvidence: isDisabilityEvidence,
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _pickAndUploadEvidence({
+    required ImageSource source,
+    required bool isDisabilityEvidence,
+  }) async {
+    final picker = ImagePicker();
+    final file = await picker.pickImage(
+      source: source,
+      imageQuality: 85,
+      maxWidth: 1920,
+    );
+    if (file == null) return;
+
+    setState(() {
+      if (isDisabilityEvidence) {
+        _disabilityEvidenceFile = file;
+        _disabilityEvidenceUrl = null;
+        _isUploadingDisabilityEvidence = true;
+        _showDisabilityEvidenceError = false;
+      } else {
+        _lastRaceEvidenceFile = file;
+        _lastRaceEvidenceUrl = null;
+        _isUploadingLastRaceEvidence = true;
+      }
+    });
+
+    try {
+      final ext = file.name.split('.').last.toLowerCase();
+      final format = ext == 'jpeg' ? 'jpg' : ext;
+      if (format != 'jpg' && format != 'png') {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Solo se permiten imágenes JPG o PNG'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
+      final path = '${SharedService.uuid}/inscripciones';
+      final imageName = isDisabilityEvidence
+          ? 'evidencia_discapacidad_${DateTime.now().millisecondsSinceEpoch}'
+          : 'evidencia_tiempo_${DateTime.now().millisecondsSinceEpoch}';
+
+      final uploadService = ImageUploadService();
+      final result = await uploadService.uploadImageWithDetails(
+        file,
+        path,
+        imageName,
+        format,
+      );
+
+      if (!mounted) return;
+
+      if (!result.success || result.uploadedUrl == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result.errorMessage ?? 'Error al subir la evidencia'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        setState(() {
+          if (isDisabilityEvidence) {
+            _disabilityEvidenceFile = null;
+          } else {
+            _lastRaceEvidenceFile = null;
+          }
+        });
+        return;
+      }
+
+      setState(() {
+        if (isDisabilityEvidence) {
+          _disabilityEvidenceUrl = result.uploadedUrl;
+        } else {
+          _lastRaceEvidenceUrl = result.uploadedUrl;
+        }
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          if (isDisabilityEvidence) {
+            _isUploadingDisabilityEvidence = false;
+          } else {
+            _isUploadingLastRaceEvidence = false;
+          }
+        });
+      }
+    }
+  }
+
   // STEP 3: Pantalla final de resumen con opción de agregar más participantes
   Widget _buildFinalSummaryStep() {
-    final responsive = Responsive(context);
-
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 200,
-            child: CompetitionCard(
-              competition: widget.competition,
-              responsive: responsive,
-              detailsOnPressedAvailable: false,
-            ),
-          ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 4),
 
           // Categoría seleccionada
           Text(
@@ -971,6 +1318,14 @@ class InscriptionScreenState extends ConsumerState<InscriptionScreen> {
     _selectedGender = null;
     _selectedTshirtSize = null;
     _selectedSetting = null;
+    _clubController.clear();
+    _emergencyContactNameController.clear();
+    _emergencyContactPhoneController.clear();
+    _lastRaceEvidenceFile = null;
+    _lastRaceEvidenceUrl = null;
+    _disabilityEvidenceFile = null;
+    _disabilityEvidenceUrl = null;
+    _showDisabilityEvidenceError = false;
   }
 
   void _setEditionData(Map<String, dynamic> participant) {
@@ -1007,13 +1362,7 @@ class InscriptionScreenState extends ConsumerState<InscriptionScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          _tipoDocumento,
-          style: nunitoSansTitleSmallStyle(
-            context,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        Text(_tipoDocumento, style: nunitoSansBodyMediumStyle(context)),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
@@ -2198,6 +2547,11 @@ class InscriptionScreenState extends ConsumerState<InscriptionScreen> {
         'tshirt_id': _selectedTshirtSize?.id,
         'tshirt_size': _selectedTshirtSize?.size,
         'tshirt_price': _selectedTshirtSize?.price ?? 0.0,
+        'company': _clubController.text,
+        'emergency_contact_name': _emergencyContactNameController.text,
+        'emergency_contact_phone': _emergencyContactPhoneController.text,
+        'last_race_evidence': _lastRaceEvidenceUrl,
+        'disabled_evidence': _disabilityEvidenceUrl,
       };
 
       if (_editingParticipantIndex != null) {
